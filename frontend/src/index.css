@@ -1,3 +1,8 @@
 main {
-    min-height: 85vh;
+    min-height: 82vh;
+}
+
+h1 {
+    margin-top: 25px;
+    text-align: center;
 }
