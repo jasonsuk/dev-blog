@@ -23,5 +23,9 @@
         "express-async-handler": "^1.1.4",
         "mongoose": "^5.11.18",
         "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "concurrently": "^6.0.0",
+        "nodemon": "^2.0.7"
     }
 }
