@@ -1,19 +1,24 @@
 import React from 'react';
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const Header = () => {
     return (
         <header>
             <Container>
                 <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                    <Navbar.Brand href="/">
-                        Jason's Development Blog
-                    </Navbar.Brand>
+                    <LinkContainer to="/">
+                        <Navbar.Brand>Jason's Development Blog</Navbar.Brand>
+                    </LinkContainer>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
-                            <Nav.Link href="#about">About</Nav.Link>
-                            <Nav.Link href="#contact">Contact</Nav.Link>
+                            <LinkContainer to="/about">
+                                <Nav.Link>About</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to="/contact">
+                                <Nav.Link>Contact</Nav.Link>
+                            </LinkContainer>
                             <NavDropdown
                                 title="Admin"
                                 id="collasible-nav-dropdown"
