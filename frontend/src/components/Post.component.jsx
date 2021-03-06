@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Card, Badge, Button } from 'react-bootstrap';
+import { Container, Card, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Post = ({ post }) => {
