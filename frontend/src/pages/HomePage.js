@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+// Styling
 import { Row, Col } from 'react-bootstrap';
 
+// Components
 import Post from '../components/Post.component.jsx';
 
-import posts from '../posts.json';
+// Data
+// import posts from '../posts.json';
+import { listPosts } from '../redux/actions/postActions.js';
 
 const HomePage = () => {
+    // Dispatch data
+    const dispatch = useDispatch();
+
+    const postList = useSelector((state) => state.postList);
+    const { posts } = postList;
+
+    useEffect(() => {
+        console.log('Dispatch posts!');
+        dispatch(listPosts());
+    }, [dispatch]);
+
     return (
         <>
             <h1>Welcome to my development blog</h1>

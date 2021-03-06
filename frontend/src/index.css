@@ -7,12 +7,24 @@ h1 {
     text-align: center;
 }
 
+h5 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
 .custom-badge {
-    padding: 0 20px;
     position: absolute;
     left: 0px;
-    bottom: 15px;
+    top: 400px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+}
+
+.custom-badge > * {
+    margin: 2px;
+    padding: 10px 15px;
+    text-transform: lowercase;
+    font-size: 1rem;
 }
