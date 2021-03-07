@@ -6,8 +6,13 @@ import morgan from 'morgan';
 // Temporary loading sample post data
 import posts from './data/posts.js';
 
+import connectDB from './config/db.js';
+
 // Use custom environment variables
 dotenv.config();
+
+// Connect to the database
+connectDB();
 
 // Instantiate an express server
 const app = express();
