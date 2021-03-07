@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 // Build a schema for Post model
-const postSchema = await mongoose.Schema(
+const postSchema = mongoose.Schema(
     {
         title: {
             type: String,
@@ -30,11 +30,11 @@ const postSchema = await mongoose.Schema(
             type: String,
             required: [true, 'Please attach an image for your blog.'],
         },
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            required: true,
-        },
+        // user: {
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref: 'User',
+        //     required: true,
+        // },
     },
     {
         timestamps: true,
@@ -43,4 +43,5 @@ const postSchema = await mongoose.Schema(
 
 // Construct the model and export
 const Post = mongoose.model('Post', postSchema);
+
 export default Post;
