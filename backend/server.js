@@ -4,6 +4,7 @@ import colors from 'colors';
 import morgan from 'morgan';
 import connectDB from './config/db.js';
 import postRouter from './routes/postRoutes.js';
+import userRouter from './routes/userRoutes.js';
 
 // Use custom environment variables
 dotenv.config();
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/api/post', postRouter);
+app.use('/api/user', userRouter);
 
 // Listen to the server
 const PORT = process.env.PORT || 6000;

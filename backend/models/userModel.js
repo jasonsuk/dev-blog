@@ -38,6 +38,11 @@ const userSchema = mongoose.Schema(
     }
 );
 
+// Verify password
+userSchema.methods.verifyPassword = async function (password) {
+    return bcrypt.compare(password, this.password);
+};
+
 // Encrypting password for POST /api/user
 userSchema.pre('save', async function (next) {
     // Only apply when modifying password field
