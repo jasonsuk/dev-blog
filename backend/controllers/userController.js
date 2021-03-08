@@ -31,3 +31,24 @@ export const signInUser = async (req, res) => {
         new Error(`Error: ${error.message}`);
     }
 };
+
+// DESC   : Get a user profile
+// ROUTE  : GET /api/user/profile
+// ACCESS : Private (protect middleware)
+
+export const getUserProfile = async (req, res) => {
+    // Get user found by token @ protect middleware
+    const user = await User.findById(req.user._id);
+
+    if (user) {
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        });
+    } else {
+        res.status(404);
+        throw new Error('No user found');
+    }
+};
