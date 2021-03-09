@@ -30,8 +30,13 @@ export const protect = async (req, res, next) => {
     }
 };
 
-export const admin = async (req, res, next) => {
+export const admin = (req, res, next) => {
     // Allow access only if user is admin
     // Therefore protect routes
-    console.log('Admin access only!');
+    if (req.user && req.user.isAdmin === true) {
+        next();
+    } else {
+        res.status(401);
+        throw new Error('Not authorized - only admin user can access');
+    }
 };
