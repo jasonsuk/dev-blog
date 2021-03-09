@@ -18,7 +18,7 @@ export const getPosts = asyncHandler(async (req, res) => {
 });
 
 // DESC   : Get a single post found by id
-// ROUTE  : GET /api/posts/:id
+// ROUTE  : GET /api/post/:id
 // ACCESS : Public
 
 export const getPostById = asyncHandler(async (req, res) => {
@@ -35,4 +35,59 @@ export const getPostById = asyncHandler(async (req, res) => {
         res.status(404);
         throw new Error(`Post ${postId} not found`);
     }
+});
+
+// DESC   : Create a post with sample data
+// ROUTE  : POST /api/post
+// ACCESS : Private, admin
+
+export const createPost = asyncHandler(async (req, res) => {
+    // Instantiate a post with the random data
+    const post = await Post({
+        image: '/images/sample.jpg',
+        title: 'Sample post',
+        body:
+            'After this sample post is created, a new frontend route will automatically lead to update post page.',
+        tags: ['Sample Post', 'Frontend', 'Backend'],
+        user: req.user._id,
+    });
+    // Save the new post to db
+    const newPost = await post.save();
+    // Send data to client side
+    res.status(201);
+    res.json(newPost);
+});
+
+// DESC   : Update a post
+// ROUTE  : PUT /api/post/:id
+// ACCESS : Private, admin
+
+export const updatePost = asyncHandler(async (req, res) => {
+    // Get a post to update
+    const postId = req.params.id;
+    const post = await Post.findById(postId);
+    // Check if the post exists in db
+    if (post) {
+        // Destructor req.body for data to update with
+        const { title, body, tags, image } = req.body;
+        // Reconstruct post
+        post.title = title || post.title;
+        post.body = body || post.body;
+        post.tags = tags || post.tags;
+        post.image = image || post.image;
+        // Save the updated post to db
+        const updatedPost = await post.save();
+        // Sent the updated post to client side
+        res.status(200).json(updatedPost);
+        //
+    } else {
+        res.status(404);
+        throw new Error(`The post ${postId} not found`);
+    }
+
+    // Save the new post to db
+    const newPost = await post.save();
+    // Send data to client side
+    res.status(201);
+    res.json(newPost);
 });
