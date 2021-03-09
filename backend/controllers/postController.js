@@ -91,3 +91,23 @@ export const updatePost = asyncHandler(async (req, res) => {
     res.status(201);
     res.json(newPost);
 });
+
+// DESC   : Delete a post
+// ROUTE  : Delete /api/post/:id
+// ACCESS : Private, admin
+
+export const deletePost = asyncHandler(async (req, res) => {
+    // Find a post to delete
+    const postId = req.params.id;
+    const post = await Post.findById(postId);
+    // Check if post exists in db
+    if (post) {
+        await post.remove();
+        res.status(200).json({
+            message: `Successfully deleted the request post ${postId}`,
+        });
+    } else {
+        res.status(404);
+        throw new Error(`The post ${postId} not found`);
+    }
+});
