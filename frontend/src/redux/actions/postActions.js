@@ -17,7 +17,7 @@ export const listPosts = () => async (dispatch) => {
         dispatch({ type: POST_LIST_REQUEST });
 
         // get data from backend
-        const { data } = await axios.get('/api/post');
+        const { data } = await axios.get('/api/posts');
         dispatch({ type: POST_LIST_SUCCESS, payload: data });
         //
     } catch (error) {
@@ -38,7 +38,7 @@ export const listPostDetail = (postId) => async (dispatch) => {
         // request for data
         dispatch({ type: POST_DETAIL_REQUEST });
         // get data from backend
-        const { data } = await axios.get(`/api/post/${postId}`);
+        const { data } = await axios.get(`/api/posts/${postId}`);
         dispatch({ type: POST_DETAIL_SUCCESS, payload: data });
         //
     } catch (error) {

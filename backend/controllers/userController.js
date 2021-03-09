@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 import getUserToken from '../utils/getUserToken.js';
 
 // DESC   : Sign in a user
-// ROUTE  : POST /api/user
+// ROUTE  : POST /api/users
 // ACCESS : Public
 
 export const signInUser = asyncHandler(async (req, res) => {
@@ -26,7 +26,7 @@ export const signInUser = asyncHandler(async (req, res) => {
 });
 
 // DESC   : Get a user profile
-// ROUTE  : GET /api/user/profile
+// ROUTE  : GET /api/users/profile
 // ACCESS : Private (protect middleware)
 
 export const getUserProfile = asyncHandler(async (req, res) => {

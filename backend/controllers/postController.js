@@ -18,7 +18,7 @@ export const getPosts = asyncHandler(async (req, res) => {
 });
 
 // DESC   : Get a single post found by id
-// ROUTE  : GET /api/post/:id
+// ROUTE  : GET /api/posts/:id
 // ACCESS : Public
 
 export const getPostById = asyncHandler(async (req, res) => {
@@ -59,7 +59,7 @@ export const createPost = asyncHandler(async (req, res) => {
 });
 
 // DESC   : Update a post
-// ROUTE  : PUT /api/post/:id
+// ROUTE  : PUT /api/posts/:id
 // ACCESS : Private, admin
 
 export const updatePost = asyncHandler(async (req, res) => {
@@ -93,7 +93,7 @@ export const updatePost = asyncHandler(async (req, res) => {
 });
 
 // DESC   : Delete a post
-// ROUTE  : Delete /api/post/:id
+// ROUTE  : Delete /api/posts/:id
 // ACCESS : Private, admin
 
 export const deletePost = asyncHandler(async (req, res) => {
