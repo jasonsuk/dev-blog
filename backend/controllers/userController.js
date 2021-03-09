@@ -1,3 +1,4 @@
+import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import getUserToken from '../utils/getUserToken.js';
 
@@ -5,38 +6,30 @@ import getUserToken from '../utils/getUserToken.js';
 // ROUTE  : POST /api/user
 // ACCESS : Public
 
-export const signInUser = async (req, res) => {
-    try {
-        const { email, password } = req.body;
+export const signInUser = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
 
-        // Find user by email
-        const user = await User.findOne({ email: email });
-        if (user && user.email === email) {
-            (await user.verifyPassword(password)) &&
-                res.json({
-                    id: user._id,
-                    name: user.name,
-                    email: user.email,
-                    isAdmin: user.isAdmin,
-                    token: getUserToken(user._id),
-                });
-        } else {
-            res.status(404);
-            new Error(`The user with the email of ${email} not found.`);
-        }
-
-        //
-    } catch (error) {
-        res.status(404);
-        new Error(`Error: ${error.message}`);
+    // Find user by email
+    const user = await User.findOne({ email: email });
+    if (user && (await user.verifyPassword(password))) {
+        res.json({
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            token: getUserToken(user._id),
+        });
+    } else {
+        res.status(401);
+        throw new Error(`Log in failed: invalid email or password`);
     }
-};
+});
 
 // DESC   : Get a user profile
 // ROUTE  : GET /api/user/profile
 // ACCESS : Private (protect middleware)
 
-export const getUserProfile = async (req, res) => {
+export const getUserProfile = asyncHandler(async (req, res) => {
     // Get user found by token @ protect middleware
     const user = await User.findById(req.user._id);
 
@@ -49,6 +42,6 @@ export const getUserProfile = async (req, res) => {
         });
     } else {
         res.status(404);
-        throw new Error('No user found');
+        throw new Error(`User not found`);
     }
-};
+});

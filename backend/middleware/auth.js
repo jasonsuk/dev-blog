@@ -1,7 +1,8 @@
+import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 
-export const protect = async (req, res, next) => {
+export const protect = asyncHandler(async (req, res, next) => {
     // Verify user using Bearer token in the header
     // If authorized, return req.user
     let token;
@@ -18,7 +19,6 @@ export const protect = async (req, res, next) => {
             const decoded = jwt.verify(token, process.env.SECRET_KEY); // Ref1
             // Assign user to req.user without password
             req.user = await User.findById(decoded.userId).select('-password');
-            next();
             //
         } catch (error) {
             res.status(401);
@@ -28,7 +28,9 @@ export const protect = async (req, res, next) => {
         res.status(401);
         throw new Error('Not authorized - no token or invalid token');
     }
-};
+    // Pass req.user to controller(s) coming next
+    next();
+});
 
 export const admin = (req, res, next) => {
     // Allow access only if user is admin
