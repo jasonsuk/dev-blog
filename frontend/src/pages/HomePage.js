@@ -19,7 +19,6 @@ const HomePage = () => {
     const { posts } = postList;
 
     useEffect(() => {
-        console.log('Dispatch posts!');
         dispatch(listPosts());
     }, [dispatch]);
 
