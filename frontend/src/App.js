@@ -6,6 +6,7 @@ import Header from './components/Header.component.jsx';
 import Footer from './components/Footer.component.jsx';
 import HomePage from './pages/HomePage.js';
 import PostPage from './pages/PostPage.js';
+import PostListPage from './pages/PostListPage.js';
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
                 <Container className="my-3">
                     <Route path="/" component={HomePage} exact />
                     <Route path="/post/:id" component={PostPage} />
+                    <Route path="/admin/postList" component={PostListPage} />
                 </Container>
             </main>
             <Footer />

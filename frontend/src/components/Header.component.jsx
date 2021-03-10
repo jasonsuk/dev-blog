@@ -23,12 +23,14 @@ const Header = () => {
                                 title="Admin"
                                 id="collasible-nav-dropdown"
                             >
-                                <NavDropdown.Item href="#">
-                                    Write blog
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="#">
-                                    Edit blog
-                                </NavDropdown.Item>
+                                <LinkContainer to="/admin/postList">
+                                    <NavDropdown.Item>
+                                        Manage post
+                                    </NavDropdown.Item>
+                                </LinkContainer>
+                                {/* <NavDropdown.Item href="#">
+                                    
+                                </NavDropdown.Item> */}
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="#">
                                     More works
