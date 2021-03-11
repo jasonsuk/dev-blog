@@ -5,12 +5,15 @@ import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import Loader from '../components/Loader.component.jsx';
 import Message from '../components/Message.component.jsx';
 
-import { listPosts } from '../redux/actions/postActions.js';
+import { listPosts, deletePost } from '../redux/actions/postActions.js';
 
 const PostListPage = () => {
     // Get state from store
     const postList = useSelector((state) => state.postList);
     const { loading, error, posts } = postList;
+
+    const postDelete = useSelector((state) => state.postDelete);
+    const { success: successDelete } = postDelete;
 
     // Instantiate dispatch
     const dispatch = useDispatch();
@@ -18,14 +21,16 @@ const PostListPage = () => {
     useEffect(() => {
         // Dispatch posts when the page is loaded
         dispatch(listPosts());
-    }, [dispatch]);
+    }, [dispatch, successDelete]);
 
     // Handlers (attached to button) to create & delete a post
     const createPostHandler = () => {
         console.log('Successfully created a new post!');
     };
-    const deletePostHandler = () => {
-        console.log('Successfully deleted the post!');
+    const deletePostHandler = (postId) => {
+        if (window.confirm('Are you sure?')) {
+            dispatch(deletePost(postId));
+        }
     };
 
     return (
@@ -92,7 +97,9 @@ const PostListPage = () => {
                                         <Button
                                             variant="warning"
                                             size="sm"
-                                            onClick={() => deletePostHandler()}
+                                            onClick={() =>
+                                                deletePostHandler(post._id)
+                                            }
                                         >
                                             <i class="far fa-trash-alt"></i>
                                         </Button>

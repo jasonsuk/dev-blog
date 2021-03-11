@@ -3,13 +3,18 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // Load reducers
-import { postListReducer, postDetailReducer } from './reducers/postReducers.js';
+import {
+    postListReducer,
+    postDetailReducer,
+    postDeleteReducer,
+} from './reducers/postReducers.js';
 
 // Combine reducers
 // name: individualReducerImported
 const reducer = combineReducers({
     postList: postListReducer,
     postDetail: postDetailReducer,
+    postDelete: postDeleteReducer,
 });
 
 // Set initial state from local storage

@@ -19,7 +19,7 @@ router
     .route('/:id')
     .get(getPostById)
     .put(protect, admin, updatePost)
-    .delete(protect, admin, deletePost);
+    .delete(deletePost);
 
 // Export the router
 export default router;

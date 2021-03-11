@@ -8,6 +8,9 @@ import {
     POST_DETAIL_REQUEST,
     POST_DETAIL_SUCCESS,
     POST_DETAIL_ERROR,
+    POST_DELETE_REQUEST,
+    POST_DELETE_SUCCESS,
+    POST_DELETE_ERROR,
 } from '../constants/postConstants.js';
 
 // List all posts @ HomePage
@@ -45,6 +48,29 @@ export const listPostDetail = (postId) => async (dispatch) => {
         // dispatch error message
         dispatch({
             type: POST_DETAIL_ERROR,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+// Delete a post
+export const deletePost = (postId) => async (dispatch) => {
+    try {
+        // request for data
+        dispatch({ type: POST_DELETE_REQUEST });
+        // authenticate the access
+
+        // delete a post
+        await axios.delete(`/api/posts/${postId}`);
+        dispatch({ type: POST_DELETE_SUCCESS });
+        //
+    } catch (error) {
+        // dispatch error message
+        dispatch({
+            type: POST_DELETE_ERROR,
             payload:
                 error.response && error.response.data.message
                     ? error.response.data.message
