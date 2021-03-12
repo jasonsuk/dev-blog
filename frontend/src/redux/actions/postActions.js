@@ -60,14 +60,25 @@ export const listPostDetail = (postId) => async (dispatch) => {
 };
 
 // Delete a post
-export const deletePost = (postId) => async (dispatch) => {
+export const deletePost = (postId) => async (dispatch, getState) => {
     try {
         // request for data
         dispatch({ type: POST_DELETE_REQUEST });
         // authenticate the access
 
+        const {
+            userLogIn: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
         // delete a post
-        await axios.delete(`/api/posts/${postId}`);
+        await axios.delete(`/api/posts/${postId}`, config);
         dispatch({ type: POST_DELETE_SUCCESS });
         //
     } catch (error) {
