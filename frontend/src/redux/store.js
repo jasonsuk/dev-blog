@@ -7,6 +7,7 @@ import {
     postListReducer,
     postDetailReducer,
     postDeleteReducer,
+    postCreateReducer,
 } from './reducers/postReducers.js';
 
 import { userLogInReducer } from './reducers/userReducers.js';
@@ -16,8 +17,9 @@ import { userLogInReducer } from './reducers/userReducers.js';
 const reducer = combineReducers({
     postList: postListReducer,
     postDetail: postDetailReducer,
-    postDelete: postDeleteReducer,
     userLogIn: userLogInReducer,
+    postDelete: postDeleteReducer,
+    postCreate: postCreateReducer,
 });
 
 // Get data from local storage

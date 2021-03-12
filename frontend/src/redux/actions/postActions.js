@@ -11,6 +11,9 @@ import {
     POST_DELETE_REQUEST,
     POST_DELETE_SUCCESS,
     POST_DELETE_ERROR,
+    POST_CREATE_ERROR,
+    POST_CREATE_REQUEST,
+    POST_CREATE_SUCCESS,
 } from '../constants/postConstants.js';
 
 // List all posts @ HomePage
@@ -71,6 +74,39 @@ export const deletePost = (postId) => async (dispatch) => {
         // dispatch error message
         dispatch({
             type: POST_DELETE_ERROR,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+// Create a sample post
+export const createPost = () => async (dispatch, getState) => {
+    try {
+        // request for data
+        dispatch({ type: POST_CREATE_REQUEST });
+        // authenticate the access
+        const {
+            userLogIn: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        // create a post
+        const { data } = await axios.post('/api/posts', {}, config);
+        dispatch({ type: POST_CREATE_SUCCESS, payload: data });
+        //
+    } catch (error) {
+        // dispatch error message
+        dispatch({
+            type: POST_CREATE_ERROR,
             payload:
                 error.response && error.response.data.message
                     ? error.response.data.message

@@ -9,6 +9,9 @@ import {
     POST_DELETE_REQUEST,
     POST_DELETE_SUCCESS,
     POST_DELETE_ERROR,
+    POST_CREATE_REQUEST,
+    POST_CREATE_SUCCESS,
+    POST_CREATE_ERROR,
 } from '../constants/postConstants.js';
 
 // List all posts @ HomePage
@@ -47,6 +50,20 @@ export const postDeleteReducer = (state = {}, action) => {
         case POST_DELETE_SUCCESS:
             return { loading: false, success: true };
         case POST_DELETE_ERROR:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+// Create a sample post (to be updated immediately)
+export const postCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case POST_CREATE_REQUEST:
+            return { loading: true };
+        case POST_CREATE_SUCCESS:
+            return { loading: false, success: true, post: action.payload };
+        case POST_CREATE_ERROR:
             return { loading: false, error: action.payload };
         default:
             return state;

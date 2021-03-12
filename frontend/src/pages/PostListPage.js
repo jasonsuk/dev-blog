@@ -5,9 +5,13 @@ import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import Loader from '../components/Loader.component.jsx';
 import Message from '../components/Message.component.jsx';
 
-import { listPosts, deletePost } from '../redux/actions/postActions.js';
+import {
+    listPosts,
+    deletePost,
+    createPost,
+} from '../redux/actions/postActions.js';
 
-const PostListPage = () => {
+const PostListPage = ({ history }) => {
     // Get state from store
     const postList = useSelector((state) => state.postList);
     const { loading, error, posts } = postList;
@@ -15,18 +19,28 @@ const PostListPage = () => {
     const postDelete = useSelector((state) => state.postDelete);
     const { success: successDelete } = postDelete;
 
+    const postCreate = useSelector((state) => state.postCreate);
+    const { success: successCreate, post: newPost } = postCreate;
+
     // Instantiate dispatch
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Dispatch posts when the page is loaded
-        dispatch(listPosts());
-    }, [dispatch, successDelete]);
+        // When a sample post is newly created
+        // Immediately directed to PostEdit page
+        if (successCreate) {
+            history.push(`/admin/posts/${newPost._id}/edit`);
+        } else {
+            // Dispatch posts when the page is loaded
+            dispatch(listPosts());
+        }
+    }, [dispatch, successDelete, successCreate, history, newPost]);
 
     // Handlers (attached to button) to create & delete a post
     const createPostHandler = () => {
-        console.log('Successfully created a new post!');
+        dispatch(createPost());
     };
+
     const deletePostHandler = (postId) => {
         if (window.confirm('Are you sure?')) {
             dispatch(deletePost(postId));
@@ -91,7 +105,7 @@ const PostListPage = () => {
                                                 variant="warning"
                                                 size="sm"
                                             >
-                                                <i class="far fa-edit"></i>
+                                                <i className="far fa-edit"></i>
                                             </Button>
                                         </LinkContainer>
                                         <Button
@@ -101,7 +115,7 @@ const PostListPage = () => {
                                                 deletePostHandler(post._id)
                                             }
                                         >
-                                            <i class="far fa-trash-alt"></i>
+                                            <i className="far fa-trash-alt"></i>
                                         </Button>
                                     </td>
                                 </tr>
