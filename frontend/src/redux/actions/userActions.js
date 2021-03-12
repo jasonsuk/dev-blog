@@ -39,3 +39,11 @@ export const logInUser = (email, password) => async (dispatch) => {
         });
     }
 };
+
+// Log out user
+export const logout = () => (dispatch) => {
+    // Empty local storage
+    localStorage.removeItem('userInfo');
+    // Empty state
+    dispatch({ type: USER_LOGOUT });
+};

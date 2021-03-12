@@ -1,8 +1,20 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import { logout } from '../redux/actions/userActions.js';
+
 const Header = () => {
+    const dispatch = useDispatch();
+
+    const userLogIn = useSelector((state) => state.userLogIn);
+    const { userInfo } = userLogIn;
+
+    const logoutHandler = () => {
+        dispatch(logout());
+    };
+
     return (
         <header>
             <Container>
@@ -19,23 +31,26 @@ const Header = () => {
                             <LinkContainer to="/contact">
                                 <Nav.Link>Contact</Nav.Link>
                             </LinkContainer>
-                            <NavDropdown
-                                title="Admin"
-                                id="collasible-nav-dropdown"
-                            >
-                                <LinkContainer to="/admin/postList">
-                                    <NavDropdown.Item>
-                                        Manage post
+                            {userInfo && userInfo.isAdmin === true ? (
+                                <NavDropdown
+                                    title="Admin"
+                                    id="collasible-nav-dropdown"
+                                >
+                                    <LinkContainer to="/admin/postList">
+                                        <NavDropdown.Item>
+                                            Manage post
+                                        </NavDropdown.Item>
+                                    </LinkContainer>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item onClick={logoutHandler}>
+                                        Log out
                                     </NavDropdown.Item>
+                                </NavDropdown>
+                            ) : (
+                                <LinkContainer to="/login">
+                                    <Nav.Link>Login</Nav.Link>
                                 </LinkContainer>
-                                {/* <NavDropdown.Item href="#">
-                                    
-                                </NavDropdown.Item> */}
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#">
-                                    More works
-                                </NavDropdown.Item>
-                            </NavDropdown>
+                            )}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
