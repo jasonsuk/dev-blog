@@ -31,7 +31,7 @@ const Header = () => {
                             <LinkContainer to="/contact">
                                 <Nav.Link>Contact</Nav.Link>
                             </LinkContainer>
-                            {userInfo && userInfo.isAdmin === true ? (
+                            {userInfo && userInfo.isAdmin === true && (
                                 <NavDropdown
                                     title="Admin"
                                     id="collasible-nav-dropdown"
@@ -41,11 +41,12 @@ const Header = () => {
                                             Manage post
                                         </NavDropdown.Item>
                                     </LinkContainer>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item onClick={logoutHandler}>
-                                        Log out
-                                    </NavDropdown.Item>
                                 </NavDropdown>
+                            )}
+                            {userInfo && userInfo.id ? (
+                                <Nav.Link onClick={logoutHandler}>
+                                    Log out
+                                </Nav.Link>
                             ) : (
                                 <LinkContainer to="/login">
                                     <Nav.Link>Login</Nav.Link>
