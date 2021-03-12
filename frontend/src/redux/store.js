@@ -9,16 +9,24 @@ import {
     postDeleteReducer,
 } from './reducers/postReducers.js';
 
+import { userLogInReducer } from './reducers/userReducers.js';
+
 // Combine reducers
 // name: individualReducerImported
 const reducer = combineReducers({
     postList: postListReducer,
     postDetail: postDetailReducer,
     postDelete: postDeleteReducer,
+    userLogIn: userLogInReducer,
 });
 
+// Get data from local storage
+const userInfoFromLocalStorage = localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : [];
+
 // Set initial state from local storage
-const initialState = {};
+const initialState = { userLogIn: { userInfo: userInfoFromLocalStorage } };
 
 // Middlewares in array
 const middlewares = [thunk];
