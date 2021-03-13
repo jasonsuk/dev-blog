@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage.js';
 import PostPage from './pages/PostPage.js';
 import LogInPage from './pages/LogInPage.js';
 import PostListPage from './pages/PostListPage.js';
+import PostEditPage from './pages/PostEditPage.js';
 
 const App = () => {
     return (
@@ -17,8 +18,13 @@ const App = () => {
                 <Container className="my-3">
                     <Route path="/" component={HomePage} exact />
                     <Route path="/login" component={LogInPage} />
-                    <Route path="/post/:id" component={PostPage} />
+                    <Route path="/post/:id" component={PostPage} exact />
                     <Route path="/admin/postList" component={PostListPage} />
+                    <Route
+                        path="/post/:id/edit"
+                        component={PostEditPage}
+                        exact
+                    />
                 </Container>
             </main>
             <Footer />

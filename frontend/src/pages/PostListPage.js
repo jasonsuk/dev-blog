@@ -29,7 +29,7 @@ const PostListPage = ({ history }) => {
         // When a sample post is newly created
         // Immediately directed to PostEdit page
         if (successCreate) {
-            history.push(`/admin/posts/${newPost._id}/edit`);
+            history.push(`/post/${newPost._id}/edit`);
         } else {
             // Dispatch posts when the page is loaded
             dispatch(listPosts());
