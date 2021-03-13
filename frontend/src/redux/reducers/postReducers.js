@@ -12,6 +12,11 @@ import {
     POST_CREATE_REQUEST,
     POST_CREATE_SUCCESS,
     POST_CREATE_ERROR,
+    POST_CREATE_RESET,
+    POST_UPDATE_REQUEST,
+    POST_UPDATE_SUCCESS,
+    POST_UPDATE_ERROR,
+    POST_UPDATE_RESET,
 } from '../constants/postConstants.js';
 
 // List all posts @ HomePage
@@ -65,6 +70,24 @@ export const postCreateReducer = (state = {}, action) => {
             return { loading: false, success: true, post: action.payload };
         case POST_CREATE_ERROR:
             return { loading: false, error: action.payload };
+        case POST_CREATE_RESET:
+            return {};
+        default:
+            return state;
+    }
+};
+
+// Update a post
+export const postUpdateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case POST_UPDATE_REQUEST:
+            return { loading: true };
+        case POST_UPDATE_SUCCESS:
+            return { loading: false, success: true };
+        case POST_UPDATE_ERROR:
+            return { loading: false, error: action.payload };
+        case POST_UPDATE_RESET:
+            return {};
         default:
             return state;
     }

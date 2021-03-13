@@ -14,6 +14,9 @@ import {
     POST_CREATE_ERROR,
     POST_CREATE_REQUEST,
     POST_CREATE_SUCCESS,
+    POST_UPDATE_REQUEST,
+    POST_UPDATE_SUCCESS,
+    POST_UPDATE_ERROR,
 } from '../constants/postConstants.js';
 
 // List all posts @ HomePage
@@ -118,6 +121,39 @@ export const createPost = () => async (dispatch, getState) => {
         // dispatch error message
         dispatch({
             type: POST_CREATE_ERROR,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+// Update a post
+export const updatePost = (post) => async (dispatch, getState) => {
+    try {
+        // request for data
+        dispatch({ type: POST_UPDATE_REQUEST });
+        // authenticate the access
+        const {
+            userLogIn: { userInfo },
+        } = getState();
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        // update a post
+        await axios.put(`/api/posts/${post._id}`, post, config);
+        dispatch({ type: POST_UPDATE_SUCCESS });
+        //
+    } catch (error) {
+        // dispatch error message
+        dispatch({
+            type: POST_UPDATE_ERROR,
             payload:
                 error.response && error.response.data.message
                     ? error.response.data.message

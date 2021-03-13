@@ -11,6 +11,8 @@ import {
     createPost,
 } from '../redux/actions/postActions.js';
 
+import { POST_CREATE_RESET } from '../redux/constants/postConstants.js';
+
 const PostListPage = ({ history }) => {
     // Get state from store
     const postList = useSelector((state) => state.postList);
@@ -29,6 +31,7 @@ const PostListPage = ({ history }) => {
         // When a sample post is newly created
         // Immediately directed to PostEdit page
         if (successCreate) {
+            dispatch({ type: POST_CREATE_RESET });
             history.push(`/post/${newPost._id}/edit`);
         } else {
             // Dispatch posts when the page is loaded

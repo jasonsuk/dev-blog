@@ -4,7 +4,10 @@ import { Form, Button } from 'react-bootstrap';
 
 import FormContainer from '../components/FormContainer.component.jsx';
 
-const PostEditPage = () => {
+import { updatePost } from '../redux/actions/postActions.js';
+import { POST_UPDATE_RESET } from '../redux/constants/postConstants.js';
+
+const PostEditPage = ({ match, history }) => {
     // Data to send for update
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
@@ -23,14 +26,23 @@ const PostEditPage = () => {
         'statistics',
     ];
 
-    // Get states
-    //     const userLogIn = useSelector((state) => state.userLogIn);
-    //     const { userInfo } = userLogIn;
-    //
-    //     // Dispatch actions
-    //     const dispatch = useDispatch();
-    //
-    //     useEffect(() => {}, []);
+    const userLogIn = useSelector((state) => state.userLogIn);
+    const { userInfo } = userLogIn;
+
+    const postUpdate = useSelector((state) => state.postUpdate);
+    const { success: successUpdate } = postUpdate;
+
+    // Dispatch actions
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (successUpdate) {
+            history.push('/admin/postList');
+            dispatch({ type: POST_UPDATE_RESET });
+        } else {
+            console.log('Update failed');
+        }
+    }, [successUpdate, dispatch, history]);
 
     const fileUploadHandler = () => {
         console.log('Image uploaded');
@@ -38,7 +50,16 @@ const PostEditPage = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log('Post updated!');
+        dispatch(
+            updatePost({
+                _id: match.params.id,
+                title,
+                body,
+                image,
+                tags,
+                user: userInfo._id,
+            })
+        );
     };
 
     const tagSelector = (e) => {
@@ -47,7 +68,6 @@ const PostEditPage = () => {
         if (tags.length > 2) {
             tags.shift();
         }
-
         // Include the newly selected tag
         setTags([...tags, e.target.value]);
     };
