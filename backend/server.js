@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
@@ -5,6 +6,7 @@ import morgan from 'morgan';
 import connectDB from './config/db.js';
 import postRouter from './routes/postRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import fileUploadRouter from './routes/fileUploadRoute.js';
 import { notFoundError, errorHandler } from './middleware/error.js';
 
 // Use custom environment variables
@@ -32,6 +34,11 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/posts', postRouter);
 app.use('/api/users', userRouter);
+app.use('/api/uploads', fileUploadRouter);
+
+// Static route for image uploads
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // Error handling middleware
 app.use(notFoundError);
