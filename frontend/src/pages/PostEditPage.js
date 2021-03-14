@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 import FormContainer from '../components/FormContainer.component.jsx';
+import Loader from '../components/Loader.component.jsx';
 
 import { updatePost } from '../redux/actions/postActions.js';
 import { POST_UPDATE_RESET } from '../redux/constants/postConstants.js';
@@ -46,13 +48,28 @@ const PostEditPage = ({ match, history }) => {
     }, [successUpdate, dispatch, history]);
 
     const fileUploadHandler = async (e) => {
-        console.log(e.target.files[0]);
         // Get info of uploaded file
-        const file = e.targe.files[0];
+        const file = e.target.files[0];
         // Create a form data (key-value object) to send
         const formData = new FormData(); // instantiate
         formData.append('image', file);
         setUploading(true);
+
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            };
+
+            const { data } = await axios.post('/api/uploads', formData, config);
+            setImage(data);
+            setUploading(false);
+            //
+        } catch (error) {
+            console.error(error);
+            setUploading(false);
+        }
     };
 
     const submitHandler = (e) => {
@@ -78,8 +95,6 @@ const PostEditPage = ({ match, history }) => {
         // Include the newly selected tag
         setTags([...tags, e.target.value]);
     };
-
-    console.log(image);
 
     return (
         <div>
@@ -120,6 +135,7 @@ const PostEditPage = ({ match, history }) => {
                             custom
                             onClick={fileUploadHandler}
                         />
+                        {uploading && <Loader />}
                     </Form.Group>
                     <Form.Group controlId="tags">
                         <Form.Label>Select up to 3 tags</Form.Label>
