@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import multer from 'multer';
 
@@ -13,12 +14,35 @@ const storage = multer.diskStorage({
     filename: function (_req, file, cb) {
         cb(
             null,
-            file.fieldname + '-' + Date.now() + path.extname(file.originalname)
+            file.fieldname + '-' + Date.now() + path.extname(file.originalname) // file name
         );
     },
 });
 
-const upload = multer({ storage: storage });
+const checkFileType = (file, cb) => {
+    // Allowed ext
+    const filetypes = /jpeg|jpg|png|gif/;
+    // Check ent
+    const extname = filetypes.test(
+        path.extname(file.originalname).toLowerCase()
+    );
+    //  Check mime
+    const mimetype = filetypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true); // accept the file
+    } else {
+        cb('Error: Images only!'); // error message
+    }
+};
+
+const upload = multer({
+    storage: storage,
+    // Filter to upload only image files
+    fileFilter: function (_req, file, cb) {
+        checkFileType(file, cb);
+    },
+});
 
 // Create a route @ /uploads
 // req.file is the `image`(key) file

@@ -11,8 +11,9 @@ const PostEditPage = ({ match, history }) => {
     // Data to send for update
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState('/images/updated.jpg');
     const [tags, setTags] = useState([]);
+    const [uploading, setUploading] = useState(false);
 
     // Set an array of tags
     const availableTags = [
@@ -44,8 +45,14 @@ const PostEditPage = ({ match, history }) => {
         }
     }, [successUpdate, dispatch, history]);
 
-    const fileUploadHandler = () => {
-        console.log('Image uploaded');
+    const fileUploadHandler = async (e) => {
+        console.log(e.target.files[0]);
+        // Get info of uploaded file
+        const file = e.targe.files[0];
+        // Create a form data (key-value object) to send
+        const formData = new FormData(); // instantiate
+        formData.append('image', file);
+        setUploading(true);
     };
 
     const submitHandler = (e) => {
@@ -72,6 +79,8 @@ const PostEditPage = ({ match, history }) => {
         setTags([...tags, e.target.value]);
     };
 
+    console.log(image);
+
     return (
         <div>
             <h1>Update post</h1>
@@ -97,16 +106,17 @@ const PostEditPage = ({ match, history }) => {
                         />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Image upload (jpg, png only)</Form.Label>
+                        <Form.Label>
+                            Image upload (jpeg|jpg|png|gif only)
+                        </Form.Label>
                         <Form.Control
                             type="text"
                             value={image}
                             onChange={(e) => setImage(e.target.value)}
                         />
-
                         <Form.File
-                            id="image"
-                            label="Click here upload "
+                            id="image-upload"
+                            label="Click here to upload"
                             custom
                             onClick={fileUploadHandler}
                         />
