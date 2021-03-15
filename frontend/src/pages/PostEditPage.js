@@ -96,15 +96,6 @@ const PostEditPage = ({ match, history }) => {
         setTags([...tags, e.target.value]);
     };
 
-<<<<<<< HEAD
-||||||| d14a000
-    console.log(image);
-
-=======
-    console.log(image);
-    console.log(setUploading);
-
->>>>>>> 35ec72b0619e8882c5865c2840c508c1b557172e
     return (
         <div>
             <h1>Update post</h1>
