@@ -12,12 +12,17 @@ h5 {
     letter-spacing: 2px;
 }
 
+h6 {
+    margin-top: 10px;
+}
+
 .center-obj {
     position: absolute;
     left: 50%;
     top: 45%;
     transform: translateX(-15%);
 }
+
 
 .custom-badge {
     position: absolute;
