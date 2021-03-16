@@ -7,11 +7,12 @@ const ContactPage = () => {
         top: '45%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
+        textAlign: 'center',
     };
 
     return (
         <Container>
-            <Row style={rowStyle} className="text-center">
+            <Row style={rowStyle}>
                 <Col className="mx-4">
                     <a
                         href="mailto:sukjh87@gmail.com"
