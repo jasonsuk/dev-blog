@@ -36,13 +36,6 @@ p {
     align-items: center;
 }
 
-.custom-badge > * {
-    margin: 2px;
-    padding: 10px 15px;
-    text-transform: lowercase;
-    font-size: 1rem;
-}
-
 .post-image {
     border-radius: 15px;
     width: 35rem;
