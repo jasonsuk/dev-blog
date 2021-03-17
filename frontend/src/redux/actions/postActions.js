@@ -20,13 +20,13 @@ import {
 } from '../constants/postConstants.js';
 
 // List all posts @ HomePage
-export const listPosts = () => async (dispatch) => {
+export const listPosts = (keyword = '') => async (dispatch) => {
     try {
         // request for data
         dispatch({ type: POST_LIST_REQUEST });
 
         // get data from backend
-        const { data } = await axios.get('/api/posts');
+        const { data } = await axios.get(`/api/posts?keyword=${keyword}`);
         dispatch({ type: POST_LIST_SUCCESS, payload: data });
         //
     } catch (error) {

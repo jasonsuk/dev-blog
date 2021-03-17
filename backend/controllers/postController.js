@@ -12,7 +12,27 @@ import Post from '../models/postModel.js';
 // ROUTE  : GET /api/post
 // ACCESS : Public
 export const getPosts = asyncHandler(async (req, res) => {
-    const posts = await Post.find({});
+    // Construct query for keyword search
+    const keyword = req.query.keyword
+        ? {
+              $or: [
+                  {
+                      title: {
+                          $regex: req.query.keyword,
+                          $options: 'i', // Case insensitivity to match upper and lower cases
+                      },
+                  },
+                  {
+                      tags: {
+                          $regex: req.query.keyword,
+                          $options: 'i', // Case insensitivity to match upper and lower cases
+                      },
+                  },
+              ],
+          }
+        : {};
+
+    const posts = await Post.find({ ...keyword });
     res.status(200);
     res.json(posts);
 });

@@ -13,7 +13,10 @@ import Message from '../components/Message.component.jsx';
 // import posts from '../posts.json';
 import { listPosts } from '../redux/actions/postActions.js';
 
-const HomePage = () => {
+const HomePage = ({ match }) => {
+    // Set keyword for search if any
+    const keyword = match.params.keyword;
+
     // Dispatch data
     const dispatch = useDispatch();
 
@@ -21,8 +24,8 @@ const HomePage = () => {
     const { loading, error, posts } = postList;
 
     useEffect(() => {
-        dispatch(listPosts());
-    }, [dispatch]);
+        dispatch(listPosts(keyword));
+    }, [dispatch, keyword]);
 
     return (
         <>
