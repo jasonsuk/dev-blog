@@ -1,7 +1,10 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+
+import SearchPost from '../components/SearchPost.component.jsx';
 
 import { logout } from '../redux/actions/userActions.js';
 
@@ -24,6 +27,12 @@ const Header = () => {
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
+                        {/* Search box component using Route*/}
+                        <Route
+                            render={({ history }) => (
+                                <SearchPost history={history} />
+                            )}
+                        />
                         <Nav className="ml-auto">
                             <LinkContainer to="/about">
                                 <Nav.Link>About</Nav.Link>
