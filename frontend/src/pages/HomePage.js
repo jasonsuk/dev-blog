@@ -8,6 +8,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 import Post from '../components/Post.component.jsx';
 import Loader from '../components/Loader.component.jsx';
 import Message from '../components/Message.component.jsx';
+import Paginate from '../components/Paginate.component.jsx';
 
 // Data
 // import posts from '../posts.json';
@@ -22,6 +23,9 @@ const HomePage = ({ match }) => {
 
     const postList = useSelector((state) => state.postList);
     const { loading, error, posts } = postList;
+
+    const pageCount = 8;
+    const pageNumber = 1;
 
     useEffect(() => {
         dispatch(listPosts(keyword));
@@ -50,6 +54,11 @@ const HomePage = ({ match }) => {
                                 </Col>
                             ))}
                     </Row>
+                    <Paginate
+                        pageNumber={pageNumber}
+                        pageCount={pageCount}
+                        keyword={keyword}
+                    />
                 </Container>
             )}
         </>

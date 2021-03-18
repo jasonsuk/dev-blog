@@ -20,6 +20,15 @@ const App = () => {
                 <Container className="my-3">
                     <Route path="/" component={HomePage} exact />
                     <Route path="/search/:keyword" component={HomePage} />
+                    <Route
+                        path="/search/:keyword/page/:pageNumber"
+                        component={HomePage}
+                    />
+                    <Route
+                        path="/page/:pageNumber"
+                        component={HomePage}
+                        exact
+                    />
                     <Route path="/about" component={AboutPage} />
                     <Route path="/contact" component={ContactPage} />
                     <Route path="/login" component={LogInPage} />
