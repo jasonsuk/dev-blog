@@ -32,9 +32,23 @@ export const getPosts = asyncHandler(async (req, res) => {
           }
         : {};
 
-    const posts = await Post.find({ ...keyword });
+    // Instatiate pagination variables
+    const pageSize = 8;
+    const pageNumber = Number(req.query.page) || 1;
+
+    // Get the total number of posts
+    const countPosts = await Post.countDocuments({ ...keyword });
+
+    const posts = await Post.find({ ...keyword })
+        .limit(pageSize)
+        .skip(pageSize * (pageNumber - 1));
     res.status(200);
-    res.json(posts);
+    res.json({
+        posts,
+        pageSize,
+        pageNumber,
+        pageCount: Math.ceil(countPosts / pageSize),
+    });
 });
 
 // DESC   : Get a single post found by id
