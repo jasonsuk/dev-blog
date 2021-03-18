@@ -21,14 +21,10 @@ const App = () => {
                     <Route path="/" component={HomePage} exact />
                     <Route path="/search/:keyword" component={HomePage} />
                     <Route
-                        path="/search/:keyword/page/:pageNumber"
+                        path="/search/:keyword/page/:page"
                         component={HomePage}
                     />
-                    <Route
-                        path="/page/:pageNumber"
-                        component={HomePage}
-                        exact
-                    />
+                    <Route path="/page/:page" component={HomePage} exact />
                     <Route path="/about" component={AboutPage} />
                     <Route path="/contact" component={ContactPage} />
                     <Route path="/login" component={LogInPage} />

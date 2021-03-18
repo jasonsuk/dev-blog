@@ -36,6 +36,8 @@ export const getPosts = asyncHandler(async (req, res) => {
     const pageSize = 8;
     const pageNumber = Number(req.query.page) || 1;
 
+    console.log(req.query);
+
     // Get the total number of posts
     const countPosts = await Post.countDocuments({ ...keyword });
 

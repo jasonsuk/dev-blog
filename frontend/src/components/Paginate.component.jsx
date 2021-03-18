@@ -6,9 +6,6 @@ const Paginate = ({ pageNumber, pageCount, keyword = '' }) => {
     return (
         <>
             <Pagination>
-                <Pagination.First />
-                <Pagination.Prev />
-
                 {[...Array(pageCount).keys()].map((x) => (
                     <LinkContainer
                         key={x + 1}
@@ -23,9 +20,6 @@ const Paginate = ({ pageNumber, pageCount, keyword = '' }) => {
                         </Pagination.Item>
                     </LinkContainer>
                 ))}
-
-                <Pagination.Next />
-                <Pagination.Last />
             </Pagination>
         </>
     );

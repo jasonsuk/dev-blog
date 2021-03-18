@@ -17,19 +17,17 @@ import { listPosts } from '../redux/actions/postActions.js';
 const HomePage = ({ match }) => {
     // Set keyword for search if any
     const keyword = match.params.keyword;
+    const page = match.params.page;
 
     // Dispatch data
     const dispatch = useDispatch();
 
     const postList = useSelector((state) => state.postList);
-    const { loading, error, posts } = postList;
-
-    const pageCount = 8;
-    const pageNumber = 1;
+    const { loading, error, posts, pageNumber, pageCount } = postList;
 
     useEffect(() => {
-        dispatch(listPosts(keyword));
-    }, [dispatch, keyword]);
+        dispatch(listPosts(keyword, page));
+    }, [dispatch, keyword, page]);
 
     return (
         <>
@@ -57,7 +55,7 @@ const HomePage = ({ match }) => {
                     <Paginate
                         pageNumber={pageNumber}
                         pageCount={pageCount}
-                        keyword={keyword}
+                        keyword={keyword ? keyword : ''}
                     />
                 </Container>
             )}

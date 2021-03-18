@@ -25,7 +25,14 @@ export const postListReducer = (state = { posts: [] }, action) => {
         case POST_LIST_REQUEST:
             return { loading: true, posts: [] };
         case POST_LIST_SUCCESS:
-            return { loading: false, success: true, posts: action.payload };
+            return {
+                loading: false,
+                success: true,
+                posts: action.payload.posts,
+                pageNumber: action.payload.pageNumber,
+                pageSize: action.payload.pageSize,
+                pageCount: action.payload.pageCount,
+            };
         case POST_LIST_ERROR:
             return { loading: false, error: action.payload };
         default:
