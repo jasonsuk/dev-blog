@@ -2,12 +2,16 @@ main {
     min-height: 82vh;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     margin: 25px 0;
     text-align: center;
 }
- 
-h4, h5, h6 {
+
+h4,
+h5,
+h6 {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin: 20px auto;
@@ -22,9 +26,8 @@ p {
     position: absolute;
     left: 50%;
     top: 45%;
-    transform: translateX(-15%);
+    transform: translate(-50%, -50%);
 }
-
 
 .custom-badge {
     position: absolute;

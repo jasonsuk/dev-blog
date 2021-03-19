@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Container, Row, Col, Table, Button } from 'react-bootstrap';
 import Loader from '../components/Loader.component.jsx';
 import Message from '../components/Message.component.jsx';
+import Paginate from '../components/Paginate.component.jsx';
 
 import {
     listPosts,
@@ -13,10 +14,13 @@ import {
 
 import { POST_CREATE_RESET } from '../redux/constants/postConstants.js';
 
-const PostListPage = ({ history }) => {
+const PostListPage = ({ history, match }) => {
+    // Get page for pagination
+    const page = match.params.page || 1;
+
     // Get state from store
     const postList = useSelector((state) => state.postList);
-    const { loading, error, posts } = postList;
+    const { loading, error, posts, pageCount, pageNumber } = postList;
 
     const postDelete = useSelector((state) => state.postDelete);
     const { success: successDelete } = postDelete;
@@ -35,9 +39,9 @@ const PostListPage = ({ history }) => {
             history.push(`/post/${newPost._id}/edit`);
         } else {
             // Dispatch posts when the page is loaded
-            dispatch(listPosts());
+            dispatch(listPosts('', page));
         }
-    }, [dispatch, successDelete, successCreate, history, newPost]);
+    }, [dispatch, successDelete, successCreate, history, newPost, page]);
 
     // Handlers (attached to button) to create & delete a post
     const createPostHandler = () => {
@@ -58,8 +62,13 @@ const PostListPage = ({ history }) => {
                 <Message>{error}</Message>
             ) : (
                 <Container>
-                    <Row className="my-5">
-                        <Col className="ml-2">
+                    <Row>
+                        <LinkContainer to="/">
+                            <Button>Go back</Button>
+                        </LinkContainer>
+                    </Row>
+                    <Row className="mb-5 align-items-md-center">
+                        <Col>
                             <h2>Post List</h2>
                         </Col>
                         <Col className="px-4 text-right">
@@ -102,7 +111,9 @@ const PostListPage = ({ history }) => {
                                         ))}
                                     </td>
                                     <td>
-                                        <LinkContainer to="#">
+                                        <LinkContainer
+                                            to={`/post/${post._id}/edit`}
+                                        >
                                             <Button
                                                 className="mx-2"
                                                 variant="warning"
@@ -125,6 +136,11 @@ const PostListPage = ({ history }) => {
                             ))}
                         </tbody>
                     </Table>
+                    <Paginate
+                        pageNumber={pageNumber}
+                        pageCount={pageCount}
+                        isAdmin={true}
+                    />
                 </Container>
             )}
         </>

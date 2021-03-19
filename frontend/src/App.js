@@ -29,7 +29,16 @@ const App = () => {
                     <Route path="/contact" component={ContactPage} />
                     <Route path="/login" component={LogInPage} />
                     <Route path="/post/:id" component={PostPage} exact />
-                    <Route path="/admin/postList" component={PostListPage} />
+                    <Route
+                        path="/admin/postList"
+                        component={PostListPage}
+                        exact
+                    />
+                    <Route
+                        path="/admin/postList/page/:page"
+                        exact
+                        component={PostListPage}
+                    />
                     <Route
                         path="/post/:id/edit"
                         component={PostEditPage}
