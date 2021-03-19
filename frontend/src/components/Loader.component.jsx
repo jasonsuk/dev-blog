@@ -1,10 +1,15 @@
 import React from 'react';
-import { Container, Spinner } from 'react-bootstrap';
+import { Container, Row, Spinner } from 'react-bootstrap';
 
 const Loader = () => {
+    const loaderStyle = {
+        position: 'absolute',
+        top: '220%',
+    };
+
     return (
-        <>
-            <Container className="center-obj">
+        <Container className="d-flex flex-column align-items-center">
+            <Row style={loaderStyle}>
                 <Spinner animation="grow" variant="primary" />
                 <Spinner animation="grow" variant="secondary" />
                 <Spinner animation="grow" variant="success" />
@@ -13,9 +18,11 @@ const Loader = () => {
                 <Spinner animation="grow" variant="info" />
                 <Spinner animation="grow" variant="light" />
                 <Spinner animation="grow" variant="dark" />
-            </Container>
-            <span className="sr-only">Loading...</span>
-        </>
+            </Row>
+            <Row>
+                <span className="sr-only">Loading...</span>
+            </Row>
+        </Container>
     );
 };
 

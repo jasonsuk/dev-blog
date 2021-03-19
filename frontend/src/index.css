@@ -22,13 +22,6 @@ p {
     padding: 5px auto;
 }
 
-.center-obj {
-    position: absolute;
-    left: 50%;
-    top: 45%;
-    transform: translate(-50%, -50%);
-}
-
 .custom-badge {
     position: absolute;
     left: 0px;
