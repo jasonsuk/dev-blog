@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const ContactPage = () => {
     const rowStyle = {
@@ -8,10 +9,16 @@ const ContactPage = () => {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         textAlign: 'center',
+        marginTop: '10px',
     };
 
     return (
         <Container>
+            <Row className="mb-3">
+                <LinkContainer to="/">
+                    <Button>Go back</Button>
+                </LinkContainer>
+            </Row>
             <Row style={rowStyle}>
                 <Col className="mx-4">
                     <a

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button } from 'react-bootstrap';
+import { Row, Form, Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import FormContainer from '../components/FormContainer.component.jsx';
 import Loader from '../components/Loader.component.jsx';
 import Message from '../components/Message.component.jsx';
 
 import { logInUser } from '../redux/actions/userActions.js';
+import { USER_LOGOUT } from '../redux/constants/userConstants.js';
 
 const LogInPage = ({ history, location }) => {
     const [email, setEmail] = useState('');
@@ -30,9 +32,21 @@ const LogInPage = ({ history, location }) => {
         dispatch(logInUser(email, password));
     };
 
+    const refreshHandler = () => {
+        dispatch({ type: USER_LOGOUT });
+    };
+
     return (
         <>
             <FormContainer>
+                <Row>
+                    <LinkContainer to="/" className="mr-auto">
+                        <Button>Go back</Button>
+                    </LinkContainer>
+                    <LinkContainer to="/login" className="ml-auto">
+                        <Button onClick={refreshHandler}>Refresh</Button>
+                    </LinkContainer>
+                </Row>
                 <h1>Sign in</h1>
                 {loading ? (
                     <Loader />

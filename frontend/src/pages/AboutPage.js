@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Row, Col, Card, Badge } from 'react-bootstrap';
+import { Container, Row, Col, Card, Badge, Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const AboutPage = () => {
     const cardStyle = {
@@ -34,6 +35,11 @@ const AboutPage = () => {
 
     return (
         <Container>
+            <Row className="mb-3">
+                <LinkContainer to="/">
+                    <Button>Go back</Button>
+                </LinkContainer>
+            </Row>
             <Row>
                 <Col md={3}>
                     <Card
