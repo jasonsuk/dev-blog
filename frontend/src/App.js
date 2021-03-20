@@ -7,6 +7,7 @@ import Footer from './components/Footer.component.jsx';
 import HomePage from './pages/HomePage.js';
 import PostPage from './pages/PostPage.js';
 import AboutPage from './pages/AboutPage.js';
+import ProjectPage from './pages/ProjectPage.js';
 import ContactPage from './pages/ContactPage.js';
 import LogInPage from './pages/LogInPage.js';
 import PostListPage from './pages/PostListPage.js';
@@ -26,8 +27,9 @@ const App = () => {
                     />
                     <Route path="/page/:page" component={HomePage} exact />
                     <Route path="/about" component={AboutPage} />
+                    <Route path="/project" component={ProjectPage} />
                     <Route path="/contact" component={ContactPage} />
-                    <Route path="/login" component={LogInPage} />
+                    <Route path="/login" component={LogInPage} exact />
                     <Route path="/post/:id" component={PostPage} exact />
                     <Route
                         path="/admin/postList"
