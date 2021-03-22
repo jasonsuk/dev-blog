@@ -6,6 +6,7 @@ import { Image, Row, Col, Container, Button } from 'react-bootstrap';
 // Components
 import Loader from '../components/Loader.component.jsx';
 import Message from '../components/Message.component.jsx';
+import Meta from '../components/Meta.component.jsx';
 
 // import posts from '../posts.json';
 // Get data from backend
@@ -34,6 +35,7 @@ const PostPage = ({ match }) => {
                 <Message>{error}</Message>
             ) : (
                 <Container>
+                    <Meta title={post.title} />
                     <Link to="/">
                         <Button>Go back</Button>
                     </Link>
