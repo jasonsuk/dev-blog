@@ -26,11 +26,6 @@ if (process.env.NODE_ENV == 'development') {
 // Middleware to read req.body in JSON
 app.use(express.json());
 
-// Root route
-app.get('/', (req, res) => {
-    res.send('The server is running!');
-});
-
 // Routes
 app.use('/api/posts', postRouter);
 app.use('/api/users', userRouter);
@@ -39,6 +34,24 @@ app.use('/api/uploads', fileUploadRouter);
 // Static route for image uploads
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+// Static route for prodution mode
+if (process.env.NODE_ENV === 'production') {
+    // Set path to the static folder
+    app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+    // Pass all the remaining routes other than /api
+    app.get('*', (req, res) => {
+        res.sendFile(
+            path.resolve(__dirname, 'frontend', 'build', 'index.html')
+        );
+    });
+} else {
+    // Root route
+    app.get('/', (req, res) => {
+        res.send('The server is running!');
+    });
+}
 
 // Error handling middleware
 app.use(notFoundError);
