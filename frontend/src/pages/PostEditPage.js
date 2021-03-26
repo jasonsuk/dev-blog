@@ -13,7 +13,7 @@ const PostEditPage = ({ match, history }) => {
     // Data to send for update
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
-    const [image, setImage] = useState('/images/updated.jpg');
+    const [image, setImage] = useState('');
     const [tags, setTags] = useState([]);
     const [uploading, setUploading] = useState(false);
 
@@ -63,6 +63,7 @@ const PostEditPage = ({ match, history }) => {
             };
 
             const { data } = await axios.post('/api/uploads', formData, config);
+            console.log(data);
             setImage(data);
             setUploading(false);
             //

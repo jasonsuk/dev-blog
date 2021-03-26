@@ -40,14 +40,14 @@ const PostPage = ({ match }) => {
                         <Button>Go back</Button>
                     </Link>
                     <Row className="my-3 justify-content-md-center">
-                        <Col md={4}>
+                        <Col md={5}>
                             <Image
                                 src={post.image}
                                 fluid
                                 className="post-image"
                             />
                         </Col>
-                        <Col md={6} className="post-detail">
+                        <Col md={5} className="post-detail">
                             <h1>{post.title}</h1>
                             <p>{post.body}</p>
                         </Col>
