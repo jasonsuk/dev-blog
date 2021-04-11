@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import connectDB from './config/db.js';
 import postRouter from './routes/postRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import courseRouter from './routes/courseRoutes.js';
 import fileUploadRouter from './routes/fileUploadRoute.js';
 import { notFoundError, errorHandler } from './middleware/error.js';
 
@@ -29,6 +30,7 @@ app.use(express.json());
 // Routes
 app.use('/api/posts', postRouter);
 app.use('/api/users', userRouter);
+app.use('/api/courses', courseRouter);
 app.use('/api/uploads', fileUploadRouter);
 
 // Static route for image uploads
