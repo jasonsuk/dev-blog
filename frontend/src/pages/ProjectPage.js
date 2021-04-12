@@ -19,7 +19,7 @@ const ProjectPage = () => {
     };
 
     const cardTextStyle = {
-        minHeight: '14rem',
+        minHeight: '18rem',
     };
 
     return (
@@ -33,7 +33,11 @@ const ProjectPage = () => {
                 {projects.map((proj, id) => (
                     <Col key={id}>
                         <Card style={cardStyle}>
-                            <Card.Img variant="top" src={proj.image} fluid />
+                            <Card.Img
+                                variant="top"
+                                src={proj.image}
+                                fluid="true"
+                            />
                             <Card.Body>
                                 <a
                                     href={proj.url}
@@ -41,7 +45,7 @@ const ProjectPage = () => {
                                     rel="noreferrer"
                                 >
                                     <Card.Title style={cardTitleStyle}>
-                                        <h5>{proj.title}</h5>
+                                        {proj.title}
                                     </Card.Title>
                                 </a>
                                 <Card.Text style={cardTextStyle}>
@@ -53,18 +57,17 @@ const ProjectPage = () => {
                                             ? 'visible'
                                             : 'hidden',
                                     }}
+                                ></Card.Text>
+                                <a
+                                    href={proj.publication}
+                                    target="_blank"
+                                    rel="noreferrer"
                                 >
-                                    <a
-                                        href={proj.publication}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        <h6>
-                                            Sharing findings on Medium{' '}
-                                            <i className="fab fa-medium"></i>
-                                        </h6>
-                                    </a>
-                                </Card.Text>
+                                    <h6>
+                                        Sharing findings on Medium{' '}
+                                        <i className="fab fa-medium"></i>
+                                    </h6>
+                                </a>
                             </Card.Body>
                         </Card>
                     </Col>
