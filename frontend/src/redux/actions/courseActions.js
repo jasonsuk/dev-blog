@@ -1,4 +1,4 @@
-import axios from 'axois';
+import axios from 'axios';
 import {
     COURSE_LIST_REQUEST,
     COURSE_LIST_SUCCESS,
@@ -131,7 +131,7 @@ export const updateCourse = (course) => async (dispatch, getState) => {
     }
 };
 
-export const deleteCourse = () => async (dispatch, getState) => {
+export const deleteCourse = (id) => async (dispatch, getState) => {
     try {
         // Request for the data
         dispatch({ type: COURSE_DELETE_REQUEST });
@@ -149,7 +149,7 @@ export const deleteCourse = () => async (dispatch, getState) => {
         };
 
         // Update the data
-        await axios.delete(`/api/courses/${course._id}`, config);
+        await axios.delete(`/api/courses/${id}`, config);
         // Load the data onto payload if succeeds
         dispatch({ type: COURSE_DELETE_SUCCESS });
         //

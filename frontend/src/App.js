@@ -28,7 +28,8 @@ const App = () => {
                     />
                     <Route path="/page/:page" component={HomePage} exact />
                     <Route path="/about" component={AboutPage} />
-                    <Route path="/ownmaster" component={OwnMasterPage} />
+                    <Route path="/ownmaster" component={OwnMasterPage} exact />
+                    <Route path="/ownmaster/:id" component={OwnMasterPage} />
                     <Route path="/project" component={ProjectPage} />
                     <Route path="/contact" component={ContactPage} />
                     <Route path="/login" component={LogInPage} exact />

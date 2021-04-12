@@ -45,7 +45,7 @@ export const createCourse = asyncHandler(async (req, res) => {
             'Collect retail floor footage data using physical censors and CV',
         ],
         type: 'MicroMasters',
-        isPaid: False,
+        isPaid: false,
         // Most colleges and universities award 3 Semester Credit Hours (SCH) (45-48 contact hours)
         // for the successful completion of a study class. Source: https://en.wikipedia.org/wiki/Course_credit
         totalHours: 50,
