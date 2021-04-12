@@ -57,10 +57,8 @@ const AboutPage = () => {
                         <Card.Body>
                             <Card.Title>Hi I am Junghoon Suk!</Card.Title>
                             <Card.Text>
-                                <p>
-                                    It is boring to stick to a thing so I love
-                                    exploring.
-                                </p>
+                                It is boring to stick to a thing so I love
+                                exploring.
                             </Card.Text>
                         </Card.Body>
                     </Card>
