@@ -13,6 +13,14 @@ import {
 
 import { userLogInReducer } from './reducers/userReducers.js';
 
+import {
+    courseListReducer,
+    courseDetailReducer,
+    courseCreateReducer,
+    courseUpdateReducer,
+    courseDeleteReducer,
+} from './reducers/courseReducers.js';
+
 // Combine reducers
 // name: individualReducerImported
 const reducer = combineReducers({
@@ -22,6 +30,11 @@ const reducer = combineReducers({
     postDelete: postDeleteReducer,
     postCreate: postCreateReducer,
     postUpdate: postUpdateReducer,
+    courseList: courseListReducer,
+    courseDetail: courseDetailReducer,
+    courseCreate: courseCreateReducer,
+    courseUpdate: courseUpdateReducer,
+    courseDelete: courseDeleteReducer,
 });
 
 // Get data from local storage
