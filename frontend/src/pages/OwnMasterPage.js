@@ -20,7 +20,7 @@ const OwnMasterPage = ({ match }) => {
     const { loading, error, courses } = courseList;
 
     const courseDetail = useSelector((state) => state.courseDetail);
-    const { course } = courseDetail;
+    const { loadingDetail, errorDetail, course } = courseDetail;
 
     useEffect(() => {
         dispatch(listCourses());
@@ -61,57 +61,67 @@ const OwnMasterPage = ({ match }) => {
                             </ListGroup>
                         </Col>
                         <Col>
-                            {course && (
-                                <Card className="text-center">
-                                    <Card.Header>{course.title}</Card.Header>
-                                    <Card.Body>
-                                        <ListGroup className="text-left">
-                                            <ListGroup.Item>
-                                                Accredited from:&nbsp;
-                                                {course.school}
-                                            </ListGroup.Item>
-                                            <ListGroup.Item>
-                                                Description:&nbsp;
-                                                {course.school}
-                                            </ListGroup.Item>
-                                            <ListGroup.Item>
-                                                Projects:&nbsp;
-                                                {
-                                                    <ListGroup>
-                                                        {course.projects.map(
-                                                            (
-                                                                project,
-                                                                projIdx
-                                                            ) => (
-                                                                <ListGroup.Item
-                                                                    key={
-                                                                        projIdx
-                                                                    }
-                                                                >
-                                                                    {project}
-                                                                </ListGroup.Item>
-                                                            )
-                                                        )}
-                                                    </ListGroup>
-                                                }
-                                            </ListGroup.Item>
-                                        </ListGroup>
-                                    </Card.Body>
-                                    <Card.Footer className="text-muted">
-                                        <Row className="justify-contents-center align-items-center">
-                                            <Col>{course.type}</Col>
-                                            <Col>
-                                                {course.isPaid
-                                                    ? 'Paid'
-                                                    : 'Free'}
-                                            </Col>
-                                            <Col>
-                                                {`${course.totalHours} hours`}
-                                            </Col>
-                                            <Col>{`${course.credit} credits`}</Col>
-                                        </Row>
-                                    </Card.Footer>
-                                </Card>
+                            {loadingDetail ? (
+                                <Loader />
+                            ) : errorDetail ? (
+                                <Message>errorDetail</Message>
+                            ) : (
+                                course && (
+                                    <Card className="text-center">
+                                        <Card.Header>
+                                            {course.title}
+                                        </Card.Header>
+                                        <Card.Body>
+                                            <ListGroup className="text-left">
+                                                <ListGroup.Item>
+                                                    Accredited from:&nbsp;
+                                                    {course.school}
+                                                </ListGroup.Item>
+                                                <ListGroup.Item>
+                                                    Description:&nbsp;
+                                                    {course.school}
+                                                </ListGroup.Item>
+                                                <ListGroup.Item>
+                                                    Projects:&nbsp;
+                                                    {
+                                                        <ListGroup>
+                                                            {course.projects.map(
+                                                                (
+                                                                    project,
+                                                                    projIdx
+                                                                ) => (
+                                                                    <ListGroup.Item
+                                                                        key={
+                                                                            projIdx
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            project
+                                                                        }
+                                                                    </ListGroup.Item>
+                                                                )
+                                                            )}
+                                                        </ListGroup>
+                                                    }
+                                                </ListGroup.Item>
+                                            </ListGroup>
+                                        </Card.Body>
+                                        <Card.Footer className="text-muted">
+                                            <Row className="justify-contents-center align-items-center">
+                                                <Col>{course.type}</Col>
+                                                <Col>
+                                                    {course.isPaid
+                                                        ? 'Paid'
+                                                        : 'Free'}
+                                                </Col>
+                                                <Col>
+                                                    {`${course.totalHours} hours`}
+                                                </Col>
+                                                <Col>{`${course.credit} credits`}</Col>
+                                            </Row>
+                                        </Card.Footer>
+                                    </Card>
+                                )
                             )}
                         </Col>
                     </Row>
