@@ -7,6 +7,7 @@ import Footer from './components/Footer.component.jsx';
 import HomePage from './pages/HomePage.js';
 import PostPage from './pages/PostPage.js';
 import AboutPage from './pages/AboutPage.js';
+import OwnMasterPage from './pages/OwnMasterPage.js';
 import ProjectPage from './pages/ProjectPage.js';
 import ContactPage from './pages/ContactPage.js';
 import LogInPage from './pages/LogInPage.js';
@@ -27,6 +28,7 @@ const App = () => {
                     />
                     <Route path="/page/:page" component={HomePage} exact />
                     <Route path="/about" component={AboutPage} />
+                    <Route path="/ownmaster" component={OwnMasterPage} />
                     <Route path="/project" component={ProjectPage} />
                     <Route path="/contact" component={ContactPage} />
                     <Route path="/login" component={LogInPage} exact />
