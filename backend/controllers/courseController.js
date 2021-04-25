@@ -40,10 +40,7 @@ export const createCourse = asyncHandler(async (req, res) => {
         school: 'Oxford University',
         description:
             'ETL pipeline and machine learning pipeline. Analysis of user behaviour using natural process language and computer vision techniques.',
-        projects: [
-            'Hotel guests satisfaction analysis: most satisfied and dissatisfied factors using NLP',
-            'Collect retail floor footage data using physical censors and CV',
-        ],
+        completedAt: Date.now(),
         type: 'MicroMasters',
         isPaid: false,
         // Most colleges and universities award 3 Semester Credit Hours (SCH) (45-48 contact hours)

@@ -9,9 +9,12 @@ import Message from '../components/Message.component.jsx';
 import {
     listCourses,
     listCourseDetail,
+    createCourse,
 } from '../redux/actions/courseActions.js';
 
-const OwnMasterPage = ({ match }) => {
+import { COURSE_CREATE_RESET } from '../redux/constants/courseConstants.js';
+
+const OwnMasterPage = ({ match, history }) => {
     const courseId = match.params.id;
 
     const dispatch = useDispatch();
@@ -20,15 +23,25 @@ const OwnMasterPage = ({ match }) => {
     const { loading, error, courses } = courseList;
 
     const courseDetail = useSelector((state) => state.courseDetail);
-    const { loadingDetail, errorDetail, course } = courseDetail;
+    const { loading: loadingDetail, error: errorDetail, course } = courseDetail;
+
+    const courseCreate = useSelector((state) => state.courseCreate);
+    const { success: successCreate, course: newCourse } = courseCreate;
 
     useEffect(() => {
-        dispatch(listCourses());
+        if (successCreate) {
+            dispatch({ type: COURSE_CREATE_RESET });
+            history.push(`/course/${newCourse._id}/edit`);
+        } else {
+            dispatch(listCourses());
 
-        if (courseId) {
-            dispatch(listCourseDetail(courseId));
+            courseId && dispatch(listCourseDetail(courseId));
         }
-    }, [dispatch, courseId]);
+    }, [dispatch, courseId, history, successCreate, newCourse]);
+
+    const addCourseHandler = (e) => {
+        dispatch(createCourse());
+    };
 
     return (
         <>
@@ -36,95 +49,92 @@ const OwnMasterPage = ({ match }) => {
                 <Loader />
             ) : error ? (
                 <Message>{error}</Message>
-            ) : courses.length < 1 ? (
-                <Message>No course in the database</Message>
             ) : (
                 <Container>
-                    <Row className="mb-3 ml-auto">
-                        <LinkContainer to="/">
-                            <Button>Go back</Button>
-                        </LinkContainer>
-                    </Row>
-                    <Row>
-                        <Col md={6}>
-                            <ListGroup as="ul" variant="flush">
-                                {courses.map((item) => (
-                                    <LinkContainer
-                                        key={item._id}
-                                        to={`/ownmaster/${item._id}`}
-                                    >
-                                        <ListGroup.Item as="li">
-                                            {item.title}
-                                        </ListGroup.Item>
-                                    </LinkContainer>
-                                ))}
-                            </ListGroup>
+                    <Row className="mb-3 align-items-center">
+                        <Col className="ml-auto">
+                            <LinkContainer to="/">
+                                <Button>Go back</Button>
+                            </LinkContainer>
                         </Col>
-                        <Col>
-                            {loadingDetail ? (
-                                <Loader />
-                            ) : errorDetail ? (
-                                <Message>errorDetail</Message>
-                            ) : (
-                                course && (
-                                    <Card className="text-center">
-                                        <Card.Header>
-                                            {course.title}
-                                        </Card.Header>
-                                        <Card.Body>
-                                            <ListGroup className="text-left">
-                                                <ListGroup.Item>
-                                                    Accredited from:&nbsp;
-                                                    {course.school}
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-                                                    Description:&nbsp;
-                                                    {course.school}
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-                                                    Projects:&nbsp;
-                                                    {
-                                                        <ListGroup>
-                                                            {course.projects.map(
-                                                                (
-                                                                    project,
-                                                                    projIdx
-                                                                ) => (
-                                                                    <ListGroup.Item
-                                                                        key={
-                                                                            projIdx
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            project
-                                                                        }
-                                                                    </ListGroup.Item>
-                                                                )
-                                                            )}
-                                                        </ListGroup>
-                                                    }
-                                                </ListGroup.Item>
-                                            </ListGroup>
-                                        </Card.Body>
-                                        <Card.Footer className="text-muted">
-                                            <Row className="justify-contents-center align-items-center">
-                                                <Col>{course.type}</Col>
-                                                <Col>
-                                                    {course.isPaid
-                                                        ? 'Paid'
-                                                        : 'Free'}
-                                                </Col>
-                                                <Col>
-                                                    {`${course.totalHours} hours`}
-                                                </Col>
-                                                <Col>{`${course.credit} credits`}</Col>
-                                            </Row>
-                                        </Card.Footer>
-                                    </Card>
-                                )
-                            )}
+                        <Col className="mr-auto text-right">
+                            <Button
+                                variant="warning"
+                                size="md"
+                                onClick={() => addCourseHandler()}
+                            >
+                                + Add course
+                            </Button>
                         </Col>
                     </Row>
+                    {courses.length < 1 ? (
+                        <Message>No course in the database</Message>
+                    ) : (
+                        <Row>
+                            <Col md={6}>
+                                <ListGroup as="ul" variant="flush">
+                                    {courses.map((item) => (
+                                        <LinkContainer
+                                            key={item._id}
+                                            to={`/ownmaster/${item._id}`}
+                                        >
+                                            <ListGroup.Item as="li">
+                                                {item.title}
+                                            </ListGroup.Item>
+                                        </LinkContainer>
+                                    ))}
+                                </ListGroup>
+                            </Col>
+                            <Col>
+                                {loadingDetail ? (
+                                    <Loader />
+                                ) : errorDetail ? (
+                                    <Message>errorDetail</Message>
+                                ) : (
+                                    course && (
+                                        <Card className="text-center">
+                                            <Card.Header>
+                                                {course.title}
+                                            </Card.Header>
+                                            <Card.Body>
+                                                <ListGroup className="text-left">
+                                                    <ListGroup.Item>
+                                                        Accredited from:&nbsp;
+                                                        {course.school}
+                                                    </ListGroup.Item>
+                                                    <ListGroup.Item>
+                                                        Description:&nbsp;
+                                                        {course.school}
+                                                    </ListGroup.Item>
+                                                    <ListGroup.Item>
+                                                        Completion date:&nbsp;
+                                                        {course.completedAt.substring(
+                                                            0,
+                                                            10
+                                                        )}
+                                                    </ListGroup.Item>
+                                                </ListGroup>
+                                            </Card.Body>
+                                            <Card.Footer className="text-muted">
+                                                <Row className="justify-contents-center align-items-center">
+                                                    <Col>{course.type}</Col>
+                                                    <Col>
+                                                        {course.isPaid
+                                                            ? 'Paid'
+                                                            : 'Free'}
+                                                    </Col>
+                                                    <Col>
+                                                        {`${course.totalHours} hours`}
+                                                    </Col>
+                                                    <Col>{`${course.credit} credits`}</Col>
+                                                </Row>
+                                            </Card.Footer>
+                                        </Card>
+                                    )
+                                )}
+                            </Col>
+                        </Row>
+                    )}
                 </Container>
             )}
         </>

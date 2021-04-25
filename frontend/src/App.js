@@ -13,6 +13,7 @@ import ContactPage from './pages/ContactPage.js';
 import LogInPage from './pages/LogInPage.js';
 import PostListPage from './pages/PostListPage.js';
 import PostEditPage from './pages/PostEditPage.js';
+import CourseEditPage from './pages/CourseEditPage.js';
 
 const App = () => {
     return (
@@ -47,6 +48,11 @@ const App = () => {
                     <Route
                         path="/post/:id/edit"
                         component={PostEditPage}
+                        exact
+                    />
+                    <Route
+                        path="/course/:id/edit"
+                        component={CourseEditPage}
                         exact
                     />
                 </Container>

@@ -37,7 +37,7 @@ export const courseDetailReducer = (
 ) => {
     switch (action.type) {
         case COURSE_DETAIL_REQUEST:
-            return { loading: true };
+            return { loading: true, ...state };
         case COURSE_DETAIL_SUCCESS:
             return { loading: false, course: action.payload };
         case COURSE_DETAIL_FAIL:

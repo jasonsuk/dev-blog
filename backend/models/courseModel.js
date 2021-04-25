@@ -13,8 +13,12 @@ const courseSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please describe the course (i.e. curriculum'],
     },
-    projects: {
-        type: [String],
+    completedAt: {
+        type: Date,
+        required: [
+            true,
+            'Please write the completed date in format of YYYY-mm-dd',
+        ],
     },
     type: {
         type: String,
@@ -25,7 +29,7 @@ const courseSchema = mongoose.Schema({
     },
     isPaid: {
         type: Boolean,
-        default: true,
+        default: false,
     },
     totalHours: {
         type: Number,

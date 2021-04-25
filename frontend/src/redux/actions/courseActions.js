@@ -72,14 +72,14 @@ export const createCourse = () => async (dispatch, getState) => {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                Authentication: `Bearer ${userInfo.token}`,
+                Authorization: `Bearer ${userInfo.token}`,
             },
         };
 
         // Create a placholder course
-        await axios.post(`/api/courses`, {}, config);
+        const { data } = await axios.post(`/api/courses`, {}, config);
         // Load the data onto payload if succeeds
-        dispatch({ type: COURSE_CREATE_SUCCESS });
+        dispatch({ type: COURSE_CREATE_SUCCESS, payload: data });
         //
     } catch (error) {
         // Send error message if fails
