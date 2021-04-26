@@ -7,7 +7,7 @@ import Course from '../models/courseModel.js';
 // USE    ; Display a list of course summaries
 
 export const getCourses = asyncHandler(async (req, res) => {
-    const courses = await Course.find({});
+    const courses = await Course.find({}).sort({ completedAt: -1 });
     res.status(200).json(courses);
 });
 

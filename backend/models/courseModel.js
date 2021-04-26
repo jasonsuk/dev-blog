@@ -22,10 +22,7 @@ const courseSchema = mongoose.Schema({
     },
     type: {
         type: String,
-        required: [
-            true,
-            'Please specify the type of the course (i.e. online bootcamp, short courses, Youtube, etc.)',
-        ],
+        required: [true, 'Please specify the type of the course'],
     },
     isPaid: {
         type: Boolean,

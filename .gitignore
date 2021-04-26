@@ -1,3 +1,5 @@
 node_modules
 .env
 uploads
+backend/data/courses.csv
+backend/data/courses.json
