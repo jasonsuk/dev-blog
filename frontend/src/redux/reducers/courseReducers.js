@@ -31,10 +31,7 @@ export const courseListReducer = (state = { courses: [] }, action) => {
     }
 };
 
-export const courseDetailReducer = (
-    state = { course: { projects: [] } },
-    action
-) => {
+export const courseDetailReducer = (state = { course: {} }, action) => {
     switch (action.type) {
         case COURSE_DETAIL_REQUEST:
             return { loading: true, ...state };

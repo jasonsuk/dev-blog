@@ -33,11 +33,13 @@ const OwnMasterPage = ({ match, history }) => {
             dispatch({ type: COURSE_CREATE_RESET });
             history.push(`/course/${newCourse._id}/edit`);
         } else {
-            dispatch(listCourses());
-
-            courseId && dispatch(listCourseDetail(courseId));
+            if (courses.length > 0 && courseId) {
+                dispatch(listCourseDetail(courseId));
+            } else {
+                dispatch(listCourses());
+            }
         }
-    }, [dispatch, courseId, history, successCreate, newCourse]);
+    }, [dispatch, courseId, courses, history, successCreate, newCourse]);
 
     const addCourseHandler = (e) => {
         dispatch(createCourse());
@@ -108,10 +110,12 @@ const OwnMasterPage = ({ match, history }) => {
                                                     </ListGroup.Item>
                                                     <ListGroup.Item>
                                                         Completion date:&nbsp;
-                                                        {course.completedAt.substring(
-                                                            0,
-                                                            10
-                                                        )}
+                                                        {Object.keys(course)
+                                                            .length !== 0
+                                                            ? course.completedAt.split(
+                                                                  'T'
+                                                              )[0]
+                                                            : 'course.completedAt'}
                                                     </ListGroup.Item>
                                                 </ListGroup>
                                             </Card.Body>
